@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Toko Ria Sundari</title>
+
+    <style>
+
+        :root{
+            --utama : #d32f2f;
+            --bg    : #f4f4f4;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:var(--bg);
+        }
+
+        /* ================= HEADER ================= */
+        header{
+            background:var(--utama);
+            color:white;
+            padding:25px;
+        }
+
+        header h1{
+            font-size:24px;
+        }
+
+        header p{
+            margin-top:6px;
+            font-size:14px;
+        }
+
+        /* ================= NAV ================= */
+        nav{
+            background:white;
+            padding:15px 20px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 2px 6px rgba(0,0,0,.1);
+        }
+
+        .cart-btn{
+            background:var(--utama);
+            color:white;
+            padding:8px 16px;
+            border-radius:20px;
+            cursor:pointer;
+        }
+
+        /* ================= PROMO ================= */
+        .promo{
+            padding:20px;
+        }
+
+        .promo-box{
+            background:linear-gradient(135deg,#ff5252,#d32f2f);
+            color:white;
+            padding:20px;
+            border-radius:14px;
+        }
+
+        /* ================= CATEGORY ================= */
+        .category{
+            padding:25px;
+        }
+
+        .category h2{
+            margin-bottom:18px;
+            border-left:5px solid var(--utama);
+            padding-left:10px;
+        }
+
+        /* ================= GRID ================= */
+        .menu-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 3px 8px rgba(0,0,0,.1);
+        }
+
+        .card img{
+            width:100%;
+            height:120px;
+            object-fit:cover;
+        }
+
+        .card-content{
+            padding:12px;
+        }
+
+        .price{
+            color:var(--utama);
+            font-weight:bold;
+            margin:6px 0;
+        }
+
+        .card button{
+            width:100%;
+            padding:8px;
+            background:var(--utama);
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        /* ================= CART ================= */
+        #cart{
+            position:fixed;
+            top:0;
+            right:-100%;
+            width:330px;
+            height:100%;
+            background:white;
+            padding:20px;
+            transition:.3s;
+            box-shadow:-4px 0 10px rgba(0,0,0,.2);
+        }
+
+        #cart.active{
+            right:0;
+        }
+
+        .cart-item{
+            display:flex;
+            justify-content:space-between;
+            margin:10px 0;
+        }
+
+        .checkout{
+            width:100%;
+            margin-top:15px;
+            padding:10px;
+            background:#25D366;
+            color:white;
+            border:none;
+            border-radius:6px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <h1>Toko Ria Sundari</h1>
+    <p>📍 Jl. Glugur Rimbun, Diski</p>
+    <p>Web Pemesanan Makanan</p>
+</header>
+
+<!-- ================= NAV ================= -->
+<nav>
+    <span>Daftar Menu</span>
+    <div class="cart-btn" onclick="toggleCart()">
+        🛒 Keranjang (<span id="count">0</span>)
+    </div>
+</nav>
+
+<!-- ================= PROMO ================= -->
+<section class="promo">
+    <div class="promo-box">
+        <h3>🔥 Promo Hari Ini</h3>
+        <p>Gratis minuman untuk pembelian tertentu</p>
+    </div>
+</section>
+
+<!-- ================= MAKANAN ================= -->
+<section class="category">
+<h2>🍛 Makanan</h2>
+<div class="menu-grid">
+
+<div class="card"><img src="m1.jpg"><div class="card-content"><h4>Nasi Goreng</h4><p class="price">Rp 15.000</p><button onclick="addItem('Nasi Goreng',15000)">Tambah</button></div></div>
+<div class="card"><img src="m2.jpg"><div class="card-content"><h4>Mie Goreng</h4><p class="price">Rp 14.000</p><button onclick="addItem('Mie Goreng',14000)">Tambah</button></div></div>
+<div class="card"><img src="m3.jpg"><div class="card-content"><h4>Nasi Ayam</h4><p class="price">Rp 18.000</p><button onclick="addItem('Nasi Ayam',18000)">Tambah</button></div></div>
+<div class="card"><img src="m4.jpg"><div class="card-content"><h4>Ayam Goreng</h4><p class="price">Rp 17.000</p><button onclick="addItem('Ayam Goreng',17000)">Tambah</button></div></div>
+<div class="card"><img src="m5.jpg"><div class="card-content"><h4>Ikan Goreng</h4><p class="price">Rp 16.000</p><button onclick="addItem('Ikan Goreng',16000)">Tambah</button></div></div>
+<div class="card"><img src="m6.jpg"><div class="card-content"><h4>Nasi Rendang</h4><p class="price">Rp 22.000</p><button onclick="addItem('Nasi Rendang',22000)">Tambah</button></div></div>
+
+</div>
+</section>
+
+<!-- ================= MINUMAN ================= -->
+<section class="category">
+<h2>🥤 Minuman</h2>
+<div class="menu-grid">
+
+<div class="card"><img src="d1.jpg"><div class="card-content"><h4>Es Teh</h4><p class="price">Rp 5.000</p><button onclick="addItem('Es Teh',5000)">Tambah</button></div></div>
+<div class="card"><img src="d2.jpg"><div class="card-content"><h4>Es Jeruk</h4><p class="price">Rp 7.000</p><button onclick="addItem('Es Jeruk',7000)">Tambah</button></div></div>
+<div class="card"><img src="d3.jpg"><div class="card-content"><h4>Kopi</h4><p class="price">Rp 8.000</p><button onclick="addItem('Kopi',8000)">Tambah</button></div></div>
+<div class="card"><img src="d4.jpg"><div class="card-content"><h4>Teh Panas</h4><p class="price">Rp 4.000</p><button onclick="addItem('Teh Panas',4000)">Tambah</button></div></div>
+<div class="card"><img src="d5.jpg"><div class="card-content"><h4>Jus Mangga</h4><p class="price">Rp 10.000</p><button onclick="addItem('Jus Mangga',10000)">Tambah</button></div></div>
+<div class="card"><img src="d6.jpg"><div class="card-content"><h4>Jus Alpukat</h4><p class="price">Rp 10.000</p><button onclick="addItem('Jus Alpukat',10000)">Tambah</button></div></div>
+
+</div>
+</section>
+
+<!-- ================= SAYURAN ================= -->
+<section class="category">
+<h2>🥬 Sayuran</h2>
+<div class="menu-grid">
+
+<div class="card"><img src="s1.jpg"><div class="card-content"><h4>Tumis Kangkung</h4><p class="price">Rp 8.000</p><button onclick="addItem('Tumis Kangkung',8000)">Tambah</button></div></div>
+<div class="card"><img src="s2.jpg"><div class="card-content"><h4>Capcay</h4><p class="price">Rp 10.000</p><button onclick="addItem('Capcay',10000)">Tambah</button></div></div>
+<div class="card"><img src="s3.jpg"><div class="card-content"><h4>Sayur Asem</h4><p class="price">Rp 7.000</p><button onclick="addItem('Sayur Asem',7000)">Tambah</button></div></div>
+<div class="card"><img src="s4.jpg"><div class="card-content"><h4>Sayur Lodeh</h4><p class="price">Rp 9.000</p><button onclick="addItem('Sayur Lodeh',9000)">Tambah</button></div></div>
+<div class="card"><img src="s5.jpg"><div class="card-content"><h4>Oseng Tauge</h4><p class="price">Rp 7.000</p><button onclick="addItem('Oseng Tauge',7000)">Tambah</button></div></div>
+<div class="card"><img src="s6.jpg"><div class="card-content"><h4>Tumis Buncis</h4><p class="price">Rp 8.000</p><button onclick="addItem('Tumis Buncis',8000)">Tambah</button></div></div>
+
+</div>
+</section>
+
+<!-- ================= SNACK ================= -->
+<section class="category">
+<h2>🍩 Snack</h2>
+<div class="menu-grid">
+
+<div class="card"><img src="sn1.jpg"><div class="card-content"><h4>Donat</h4><p class="price">Rp 4.000</p><button onclick="addItem('Donat',4000)">Tambah</button></div></div>
+<div class="card"><img src="sn2.jpg"><div class="card-content"><h4>Pisang Goreng</h4><p class="price">Rp 5.000</p><button onclick="addItem('Pisang Goreng',5000)">Tambah</button></div></div>
+<div class="card"><img src="sn3.jpg"><div class="card-content"><h4>Tahu Isi</h4><p class="price">Rp 3.000</p><button onclick="addItem('Tahu Isi',3000)">Tambah</button></div></div>
+<div class="card"><img src="sn4.jpg"><div class="card-content"><h4>Risoles</h4><p class="price">Rp 4.000</p><button onclick="addItem('Risoles',4000)">Tambah</button></div></div>
+<div class="card"><img src="sn5.jpg"><div class="card-content"><h4>Bakwan</h4><p class="price">Rp 3.000</p><button onclick="addItem('Bakwan',3000)">Tambah</button></div></div>
+<div class="card"><img src="sn6.jpg"><div class="card-content"><h4>Pastel</h4><p class="price">Rp 4.000</p><button onclick="addItem('Pastel',4000)">Tambah</button></div></div>
+
+</div>
+</section>
+
+<!-- ================= SEAFOOD ================= -->
+<section class="category">
+<h2>🦐 Seafood</h2>
+<div class="menu-grid">
+
+<div class="card"><img src="sf1.jpg"><div class="card-content"><h4>Udang Goreng</h4><p class="price">Rp 22.000</p><button onclick="addItem('Udang Goreng',22000)">Tambah</button></div></div>
+<div class="card"><img src="sf2.jpg"><div class="card-content"><h4>Cumi Goreng</h4><p class="price">Rp 20.000</p><button onclick="addItem('Cumi Goreng',20000)">Tambah</button></div></div>
+<div class="card"><img src="sf3.jpg"><div class="card-content"><h4>Kepiting</h4><p class="price">Rp 30.000</p><button onclick="addItem('Kepiting',30000)">Tambah</button></div></div>
+<div class="card"><img src="sf4.jpg"><div class="card-content"><h4>Ikan Bakar</h4><p class="price">Rp 25.000</p><button onclick="addItem('Ikan Bakar',25000)">Tambah</button></div></div>
+<div class="card"><img src="sf5.jpg"><div class="card-content"><h4>Kerang</h4><p class="price">Rp 18.000</p><button onclick="addItem('Kerang',18000)">Tambah</button></div></div>
+<div class="card"><img src="sf6.jpg"><div class="card-content"><h4>Udang Saus</h4><p class="price">Rp 24.000</p><button onclick="addItem('Udang Saus',24000)">Tambah</button></div></div>
+
+</div>
+</section>
+
+<!-- ================= CART ================= -->
+<div id="cart">
+    <button onclick="toggleCart()">Tutup</button>
+    <h3>Keranjang Belanja</h3>
+    <div id="items"></div>
+    <p>Total : Rp <span id="total">0</span></p>
+    <button class="checkout" onclick="checkoutWA()">Checkout WhatsApp</button>
+</div>
+
+<script>
+
+let cart = {};
+let total = 0;
+
+function addItem(nama, harga){
+    if(!cart[nama]){
+        cart[nama] = { qty:0, price:harga };
+    }
+    cart[nama].qty++;
+    renderCart();
+}
+
+function renderCart(){
+    let html = "";
+    let count = 0;
+    total = 0;
+
+    for(let i in cart){
+        html += `<div class="cart-item"><span>${i}</span><span>${cart[i].qty}</span></div>`;
+        count += cart[i].qty;
+        total += cart[i].qty * cart[i].price;
+    }
+
+    document.getElementById("items").innerHTML = html;
+    document.getElementById("count").innerText = count;
+    document.getElementById("total").innerText = total;
+}
+
+function toggleCart(){
+    document.getElementById("cart").classList.toggle("active");
+}
+
+function checkoutWA(){
+    let text = "Pesanan Toko Ria Sundari%0A";
+    text += "Jl. Glugur Rimbun, Diski%0A%0A";
+    for(let i in cart){
+        text += i + " x" + cart[i].qty + "%0A";
+    }
+    text += "%0ATotal: Rp " + total;
+    window.open("https://wa.me/62XXXXXXXXXX?text=" + text);
+}
+
+</script>
+
+</body>
+</html>
